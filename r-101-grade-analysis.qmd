@@ -134,3 +134,22 @@ ggplot(missed_exam_counts, aes(x = Group, y = Missed_Exam)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 50, hjust = 1))
 ```
+
+*Question 10*
+
+```{r}
+long <- grades_2_ %>%
+  pivot_longer( cols = c(matches("MCQ"), Exam), 
+    names_to = "name",
+    values_to = "value")
+```
+
+*Question 11*
+
+```{r}
+missing_grades_per_student <- long %>%
+  group_by(Id) %>%
+  summarise(Total_Missing_Grades = sum(is.na(value)))
+
+
+```
