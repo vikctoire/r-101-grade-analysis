@@ -40,3 +40,23 @@ exam_summary <- grades_2_ %>%
 # Render the summary table using knitr::kable
 knitr::kable(exam_summary, format = "markdown")
 ```
+
+*Question 3*
+
+```{r}
+num_missing_exam <- sum(is.na(grades_2_$Exam))
+
+cat("The number of students who did not take the final exam is", num_missing_exam)
+```
+
+*Question 4*
+
+```{r}
+ggplot(grades_2_, aes(x = Exam, fill = ..count..)) +
+  geom_histogram(binwidth = 1, color = "black") +
+  labs(title = "Distribution of grades at the Exam",
+       x = "Exam Grade",
+       y = "Frequency") +
+  scale_fill_gradient(low = "lightgreen", high = "darkgreen") +
+  theme_minimal()
+```
