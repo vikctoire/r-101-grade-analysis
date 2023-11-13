@@ -178,3 +178,27 @@ missed_exam_counts_long <- long %>%
 
 knitr::kable(missed_exam_counts_long)
 ```
+
+*Question 14*
+
+```{r}
+library(stringr)
+missing_online_test_grades_per_student <- long %>%
+  filter(str_starts(name, "Online_MCQ_") & is.na(value)) %>%
+  group_by(Id) %>%
+  summarise(Missing_Online_Test_Grades = sum(is.na(value)))
+```
+
+*Question 16*
+
+```{r}
+missed_mcq_data <- long %>%
+    group_by(Id)%>%
+  filter(str_starts(name, "MCQ_"))%>%
+  select(Id,value)%>%
+  group_by(Id)%>%
+  summarise(miss=anyNA(value))
+
+missed_mcq_data
+
+```
