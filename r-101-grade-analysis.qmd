@@ -202,3 +202,38 @@ missed_mcq_data <- long %>%
 missed_mcq_data
 
 ```
+
+*Question 17*
+
+```{r}
+percentage_missed_per_group <- long %>%
+
+  filter(str_starts(name, "MCQ")) %>%
+  group_by(Group) %>%
+  summarize(P_missed = mean(is.na(value)) * 100)
+
+# Render the table using knitr::kable
+knitr::kable(percentage_missed_per_group)
+
+```
+
+*Question 18*
+
+```{r}
+# Calculate average exam grades per group
+average_exam_grades_per_group <- grades_2_ %>%
+  group_by(Group) %>%
+  summarize(Average_Exam_Grade = mean(Exam, na.rm = TRUE))
+
+# Merge the two tables using inner_join
+merged_data <- inner_join(average_exam_grades_per_group, percentage_missed_per_group, by = "Group")
+
+# Scatter plot
+ggplot(merged_data, aes(x = P_missed, y = Average_Exam_Grade, color = Group)) +
+  geom_point() +
+  labs(title = "Average Exam Grade vs. Percentage of Missed MCQ_xx Grades",
+       x = "Percentage",
+       y = "Average Exam grade",
+       color = "Group")+
+      theme_minimal()
+```
