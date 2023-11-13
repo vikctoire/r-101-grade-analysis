@@ -1,0 +1,42 @@
+---
+title: "r-101-grade-analysis"
+author: "Victoire Truchon-Bartès"
+format: html
+editor: visual
+---
+
+## 
+
+```{r}
+here::i_am("r-101-grade-analysis.Rproj")
+#| message: false
+library(here)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+*Question 1*
+
+```{r}
+#| message: false
+here::i_am("grades.csv")
+library(readr)
+grades_2_ <- read_csv("grades.csv")
+
+```
+
+*Question 2*
+
+```{r}
+exam_summary <- grades_2_ %>%
+  summarise(
+    "Minimum" = min(Exam, na.rm = TRUE),
+    "Maximum" = max(Exam, na.rm = TRUE),
+    "Median" = median(Exam, na.rm = TRUE),
+    "Mean" = mean(Exam, na.rm = TRUE),
+  )
+
+# Render the summary table using knitr::kable
+knitr::kable(exam_summary, format = "markdown")
+```
