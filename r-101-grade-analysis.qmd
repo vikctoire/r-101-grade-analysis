@@ -153,3 +153,28 @@ missing_grades_per_student <- long %>%
 
 
 ```
+
+*Question 12*
+
+```{r}
+
+ ggplot(missing_grades_per_student, aes(x = Total_Missing_Grades, fill = ..count..)) +
+  geom_histogram(color = "blue")+ 
+  labs(title = "Distribution of total missing grades per student",
+       x = "Total missing grades", 
+       y = "Frequency") +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") + 
+  theme_minimal()
+
+```
+
+*Question 13*
+
+```{r}
+missed_exam_counts_long <- long %>%
+  filter(name == "Exam" & is.na(value)) %>%
+  group_by(Group) %>%
+  summarise(Missed_Exam = sum(is.na(value)))
+
+knitr::kable(missed_exam_counts_long)
+```
