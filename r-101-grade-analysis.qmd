@@ -60,3 +60,29 @@ ggplot(grades_2_, aes(x = Exam, fill = ..count..)) +
   scale_fill_gradient(low = "lightgreen", high = "darkgreen") +
   theme_minimal()
 ```
+
+*Question 5*
+
+```{r}
+group_counts <- grades_2_ %>%
+  group_by(Group) %>%
+  summarise(Count = n())
+
+
+# include the table using knitr::kable
+knitr::kable(group_counts, format = "markdown")
+```
+
+*Question 6*
+
+```{r}
+ggplot(group_counts, aes(x = Group, y = Count)) +
+  geom_bar(stat = "identity", fill = "red") +
+  labs(title = "Number of Students in Each Group",
+       x = "Group",
+       y = "Number of student") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 50, hjust = 1))
+
+
+```
