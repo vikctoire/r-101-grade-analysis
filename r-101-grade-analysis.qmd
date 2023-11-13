@@ -86,3 +86,51 @@ ggplot(group_counts, aes(x = Group, y = Count)) +
 
 
 ```
+
+*Question 7*
+
+```{r}
+# Option 1: Boxplot
+ggplot(grades_2_, aes(x = Group, y = Exam)) +
+  geom_boxplot(fill = "blue") +
+  labs(title = "Distribution of Exam Grades by Group (Boxplot)",
+       x = "Group",
+       y = "Exam Grade") +
+  theme_minimal()+
+    theme(axis.text.x = element_text(angle = 50, hjust = 1))
+  
+
+# Option 2: Point 
+
+ggplot(grades_2_, aes(x = Group, y = Exam)) +
+  geom_point(fill = "lightblue") +
+  labs(title = "Distribution of Exam Grades by Group (point Plot)",
+       x = "Group",
+       y = "Exam Grade") +
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 50, hjust = 1))
+
+```
+
+*Question 8*
+
+```{r}
+missed_exam_counts <- grades_2_ %>%
+  group_by(Group) %>%
+  summarise(Missed_Exam = sum(is.na(Exam)))
+
+missed_exam_counts
+
+```
+
+*Question 9*
+
+```{r}
+ggplot(missed_exam_counts, aes(x = Group, y = Missed_Exam)) +
+  geom_col(fill = "cyan") +
+  labs(title = "Number of Students Who Missed the Exam by Group",
+       x = "Group",
+       y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 50, hjust = 1))
+```
